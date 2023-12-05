@@ -1,0 +1,82 @@
+
+<h2 style="text-align: center; background-color: black; color: white;">Heliverse Assignment.</h2>
+
+<div class="filter-container">
+    <div>
+      <input type="text" placeholder="Search by Name" [(ngModel)]="searchName" />
+    </div>
+    
+  
+    <div>
+      <label for="domainFilter">Domain:</label>
+      <select id="domainFilter" [(ngModel)]="selectedDomain">
+        <option value="">All</option>
+        <option *ngFor="let domain of data | unique:'domain'" [value]="domain">
+          {{ domain }}
+        </option>
+      </select>
+  
+      <label for="genderFilter">Gender:</label>
+      <select id="genderFilter" [(ngModel)]="selectedGender">
+        <option value="">All</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+  
+      <label for="availabilityFilter">Availability:</label>
+      <select id="availabilityFilter" [(ngModel)]="selectedAvailability">
+        <option value="">All</option>
+        <option value="true">Available</option>
+        <option value="false">Not Available</option>
+      </select>
+    </div>
+
+
+    <button (click)="addToTeam()">Add Selected Users to Team</button>
+
+    <button (click)="showTeamDetails()">Show Team Details</button>
+  </div>
+
+  
+  <div class="card-container" *ngIf="showMainDetail">
+    <div class="card" *ngFor="let item of paginatedData">
+      <img [src]="item.avatar" class="card-img-top" alt="Avatar">
+      <div class="card-body">
+        <h5 class="card-title">{{ item.first_name }} {{ item.last_name }}</h5>
+        <p class="card-text"><strong>Email:</strong> {{ item.email }}</p>
+        <p class="card-text"><strong>Gender:</strong> {{ item.gender }}</p>
+        <p class="card-text"><strong>Domain:</strong> {{ item.domain }}</p>
+        <p class="card-text"><strong>Availability:</strong> {{ item.available ? 'Available' : 'Not Available' }}</p>
+
+        <button (click)="addToTeam(item)">Add to Team</button>
+      </div>
+    </div>
+  </div>
+
+<div  *ngIf="showTeamDetail">
+  <h2 style="text-align: center; background-color: black; color: white;">Team Members</h2>
+  <div class="card-container">
+    <br>
+    <br>
+    <div class="card" *ngFor="let user of teamMembersForDisplay" style="margin-top: 50px;">
+      <img [src]="user.avatar" class="card-img-top" alt="Avatar">
+      <div class="card-body">
+        <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+        <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+        <p class="card-text"><strong>Gender:</strong> {{ user.gender }}</p>
+        <p class="card-text"><strong>Domain:</strong> {{ user.domain }}</p>
+        <p class="card-text"><strong>Availability:</strong> {{ user.available ? 'Available' : 'Not Available' }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
+
+  
+  <mat-paginator
+    [length]="filteredData.length"
+    [pageSize]="pageSize"
+    (page)="currentPage = $event.pageIndex + 1"
+  ></mat-paginator>
+  
