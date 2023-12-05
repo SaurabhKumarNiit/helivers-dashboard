@@ -10,7 +10,9 @@ export class UniquePipe implements PipeTransform {
       return value;
     }
 
-    const uniqueValues = Array.from(new Set(value.map((item: any) => item[property])));
+    const uniqueValues = Array.from(
+      new Set(value.map((item: any) => item[property]))
+    );
     return uniqueValues;
   }
 }
