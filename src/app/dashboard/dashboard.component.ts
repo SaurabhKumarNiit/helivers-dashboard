@@ -96,4 +96,8 @@ export class DashboardComponent implements OnInit {
     this.showTeamDetail = true;
     this.showMainDetail = false;
   }
+
+  reload(){
+    window.location.reload();
+  }
 }
