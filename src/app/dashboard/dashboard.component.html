@@ -41,7 +41,9 @@
     </select>
   </div>
 
-  <button (click)="showTeamDetails()">Show Team Details</button>
+  <button style="padding: 5px;" (click)="showTeamDetails()">Show Team Details</button>
+  <button style="padding: 5px;" (click)="hideTeamDetails()">Show All Members</button>
+
 </div>
 
 <div class="card-container" *ngIf="showMainDetail">

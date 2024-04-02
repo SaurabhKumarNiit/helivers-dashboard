@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   searchName = '';
   selectedDomain: string | null = null;
   selectedGender: string | null = null;
-  selectedAvailability: boolean | null = null;
+  selectedAvailability: string | null = null;
   team: Team | null = null;
   user: User[] = [];
 
@@ -34,20 +34,30 @@ export class DashboardComponent implements OnInit {
       this.data = response;
     });
   }
-
   get filteredData(): any[] {
     return this.data.filter((item) => {
       const nameMatch = item.first_name.toLowerCase().includes(this.searchName.toLowerCase());
       const domainMatch = this.selectedDomain === null || item.domain === this.selectedDomain;
       const genderMatch = this.selectedGender === null || item.gender === this.selectedGender;
       const availabilityMatch =
-        this.selectedAvailability === null ||
-        (this.selectedAvailability && item.available) ||
-        (!this.selectedAvailability && !item.available);
-
+        this.selectedAvailability === null || item.available=== this.selectedAvailability;
+        console.log(this.selectedAvailability)
+        // (this.selectedAvailability && item.available) ||
+        // (!this.selectedAvailability && !item.available);
+  
       return nameMatch && domainMatch && genderMatch && availabilityMatch;
     });
   }
+  
+  
+  
+  
+  
+  
+  
+  
+
+
   get paginatedData(): any[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
@@ -95,6 +105,10 @@ export class DashboardComponent implements OnInit {
   showTeamDetails(): void {
     this.showTeamDetail = true;
     this.showMainDetail = false;
+  }
+  hideTeamDetails(): void {
+    this.showTeamDetail = false;
+    this.showMainDetail = true;
   }
 
   reload(){
